@@ -24,8 +24,7 @@ void Madgwick::update(
 
 	Quaternion gyroQuaternion(gyroValue);
 
-	qDotOmega = quaternion * gyroQuaternion;
-	qDotOmega *= 0.5;
+	qDotOmega = quaternion * gyroQuaternion * 0.5;
 
 	f[0]=2*(quaternion[1]*quaternion[3]-quaternion[0]*quaternion[2])-accelValue[0];
 	f[1]=2*(quaternion[0]*quaternion[1]+quaternion[2]*quaternion[3]-accelValue[1]);
