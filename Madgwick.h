@@ -24,7 +24,10 @@ public:
 	 */
 	void update(std::array<float, 3> accelValue, std::array<float, 3> gyroValue, float time);
 
-
+	/* brief gets an attitude in quaternion
+	 * return quaternion
+	 */
+	Quaternion getQuaternion(){return quaternion;}
 private:
 	Quaternion quaternion;
 	float befTime;
