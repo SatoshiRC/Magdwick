@@ -11,11 +11,12 @@
 #include <cmath>
 #include <array>
 #include "../Quaternion/Quaternion.h"
+#include <stdint.h>
 
 template<typename T>
 class Madgwick {
 public:
-	Madgwick();
+	Madgwick(){};
 
 	/* brief calculate quaternion
 	 * param accelValue Value of accele meter (m/s^2)
@@ -27,7 +28,7 @@ public:
 	/* brief gets an attitude in quaternion
 	 * return quaternion
 	 */
-	Quaternion getQuaternion(){return quaternion;}
+	Quaternion<T> getQuaternion(){return quaternion;}
 private:
 	Quaternion<T> quaternion;
 	T befTime;
