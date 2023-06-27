@@ -7,24 +7,32 @@
 
 #include "Madgwick.h"
 
-void Madgwick::update(
-		std::array<float, 3> accelValue,
-		std::array<float, 3> gyroValue,
-		float time)
+template<typename T>
+void Madgwick<T>::update(
+		std::array<T, 3> accelValue,
+		std::array<T, 3> gyroValue,
+		T time)
 {
-	float stepTime = time - befTime;
+	T stepTime = time - befTime;
 	befTime = time;
 
-	Quaternion qDotOmega;
-	std::array<float,3> f;
-	std::array<std::array<float,3>,4> j;
-	Quaternion qDotEpsilon;
-	Quaternion qDot;
-	const float beta=std::sqrt(3/4.0)*M_PI*(5.0/180.0);
+	Quaternion<T> qDotOmega;
+	std::array<T,3> f;
+	std::array<std::array<T,3>,4> j;
+	Quaternion<T> qDotEpsilon;
+	Quaternion<T> qDot;
+	const T beta=std::sqrt(3/4.0)*M_PI*(5.0/180.0);
 
-	Quaternion gyroQuaternion(gyroValue);
+	Quaternion<T> gyroQuaternion(gyroValue);
 
 	qDotOmega = quaternion * gyroQuaternion * 0.5;
+
+	T acceleSize = std::sqrt(std::pow(accelValue[0],2)+std::pow(accelValue[1],2)+std::pow(accelValue[2],2));
+	if(acceleSize != 0){
+		accelValue[0]/=acceleSize;
+		accelValue[1]/=acceleSize;
+		accelValue[2]/=acceleSize;
+	}
 
 	f[0]=2*(quaternion[1]*quaternion[3]-quaternion[0]*quaternion[2])-accelValue[0];
 	f[1]=2*(quaternion[0]*quaternion[1]+quaternion[2]*quaternion[3]-accelValue[1]);

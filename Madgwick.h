@@ -10,27 +10,28 @@
 
 #include <cmath>
 #include <array>
-#include "Quaternion/Quaternion.h"
+#include "../Quaternion/Quaternion.h"
+#include <stdint.h>
 
-
+template<typename T>
 class Madgwick {
 public:
-	Madgwick();
+	Madgwick(){};
 
 	/* brief calculate quaternion
 	 * param accelValue Value of accele meter (m/s^2)
 	 * param gyroValue Value of gyroscope (rad/s)
 	 * param time Time since start program (ms)
 	 */
-	void update(std::array<float, 3> accelValue, std::array<float, 3> gyroValue, float time);
+	void update(std::array<T, 3> accelValue, std::array<T, 3> gyroValue, T time);
 
 	/* brief gets an attitude in quaternion
 	 * return quaternion
 	 */
-	Quaternion getQuaternion(){return quaternion;}
+	Quaternion<T> getQuaternion(){return quaternion;}
 private:
-	Quaternion quaternion;
-	float befTime;
+	Quaternion<T> quaternion;
+	T befTime;
 };
 
 #endif /* MAGDWICK_MADGWICK_H_ */
