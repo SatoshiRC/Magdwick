@@ -7,20 +7,21 @@
 
 #include "Madgwick.h"
 
+template<typename T>
 void Madgwick::update(
-		std::array<float, 3> accelValue,
-		std::array<float, 3> gyroValue,
-		float time)
+		std::array<T, 3> accelValue,
+		std::array<T, 3> gyroValue,
+		T time)
 {
-	float stepTime = time - befTime;
+	T stepTime = time - befTime;
 	befTime = time;
 
 	Quaternion qDotOmega;
-	std::array<float,3> f;
-	std::array<std::array<float,3>,4> j;
+	std::array<T,3> f;
+	std::array<std::array<T,3>,4> j;
 	Quaternion qDotEpsilon;
 	Quaternion qDot;
-	const float beta=std::sqrt(3/4.0)*M_PI*(5.0/180.0);
+	const T beta=std::sqrt(3/4.0)*M_PI*(5.0/180.0);
 
 	Quaternion gyroQuaternion(gyroValue);
 
